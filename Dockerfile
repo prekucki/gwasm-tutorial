@@ -15,5 +15,7 @@ RUN emsdk activate latest
 ENV PATH=$PATH:/opt/emsdk/fastcomp/emscripten:/opt/emsdk/node/8.9.1_64bit/bin
 RUN cd && USER=golemdev cargo init hello
 RUN cd /root/hello && echo cargo build --target wasm32-unknown-emscripten > build.sh && chmod +x build.sh
+RUN cd /root && git clone https://github.com/golemfactory/mandelbrot.git
+RUN cd /root/mandelbrot && cargo build --target wasm32-unknown-emscripten 
+RUN cd /root/hello 
 WORKDIR /root/hello
-
