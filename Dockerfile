@@ -18,6 +18,11 @@ ENV PATH=$PATH:/opt/emsdk
 RUN emsdk activate latest
 ENV PATH=$PATH:/opt/emsdk/fastcomp/emscripten:/opt/emsdk/node/8.9.1_64bit/bin
 
+# Install gwasm-runner
+RUN cd /root && git clone https://github.com/golemfactory/gwasm-runner.git
+RUN cd /root/gwasm-runner && cargo build --release
+RUN cp /root/gwasm-runner/target/release/gwasm-runner /usr/bin/gwasm-runner
+
 # Install hello example
 COPY repos/hello-gwasm-runner/ /root/hello/
 RUN cd /root/hello/ && cargo build --release
