@@ -12,6 +12,9 @@ RUN cd /opt && \
 ENV EMSDK=/opt/emsdk
 ENV PATH=$PATH:/opt/emsdk
 RUN emsdk activate latest
+
+COPY gwasm-runner /usr/bin/
+
 ENV PATH=$PATH:/opt/emsdk/fastcomp/emscripten:/opt/emsdk/node/8.9.1_64bit/bin
 RUN cd && USER=golemdev cargo init hello
 RUN cd /root/hello && echo cargo build --target wasm32-unknown-emscripten > build.sh && chmod +x build.sh
