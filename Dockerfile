@@ -1,5 +1,9 @@
 FROM debian:stable
-RUN apt-get update && apt-get install -y build-essential curl gcc git python libxml2 cmake
+RUN apt-get update && apt-get install -y build-essential curl gcc git python libxml2 cmake vim
+
+# Install Rust syntax highlight
+RUN mkdir -p ~/.vim/pack/plugins/start/
+RUN git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # Install Rust
 ENV RUSTUP_HOME=/opt/rust
