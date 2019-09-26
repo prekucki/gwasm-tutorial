@@ -1,5 +1,5 @@
 FROM debian:stable
-RUN apt-get update && apt-get install -y build-essential curl gcc git python libxml2 cmake
+RUN apt-get update && apt-get install -y build-essential curl gcc git python libxml2 cmake vim
 
 # Install Rust
 ENV RUSTUP_HOME=/opt/rust
@@ -46,6 +46,7 @@ RUN cd /root/key_cracker_cpp/ && \
     emconfigure cmake .. && \
     make
 
+# Install gwasm-runner
 RUN curl -L -o /usr/bin/gwasm-runner https://github.com/golemfactory/gwasm-runner/releases/download/0.2.0/gwasm-runner-linux-amd64 && chmod +x /usr/bin/gwasm-runner
 
 RUN cd /root/hello 
