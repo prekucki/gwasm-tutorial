@@ -21,8 +21,8 @@ RUN emsdk activate latest
 ENV PATH=$PATH:/opt/emsdk/fastcomp/emscripten:/opt/emsdk/node/8.9.1_64bit/bin
 
 # Install hello example
-COPY repos/hello-gwasm-runner/ /root/hello/
-RUN cd /root/hello/ && cargo build --release && cargo clean
+COPY repos/hello-gwasm-runner/ /root/hello-gwasm-runner/
+RUN cd /root/hello-gwasm-runner/ && cargo build --release && cargo clean
 
 # Install mandelbrot
 RUN cd /root && git clone https://github.com/golemfactory/mandelbrot.git
@@ -30,7 +30,7 @@ RUN cd /root/mandelbrot && cargo build --release && cargo clean
 
 # Install gudot
 COPY repos/gudot/ /root/gudot/
-RUN cd /root/hello/ && cargo build --release && cargo clean
+RUN cd /root/gudot/ && cargo build --release && cargo clean
 
 # Install rust key crackers
 COPY repos/key_cracker_demo/ /root/key_cracker_demo/
@@ -49,8 +49,8 @@ RUN cd /root/key_cracker_cpp/ && \
 # Install gwasm-runner
 RUN curl -L -o /usr/bin/gwasm-runner https://github.com/golemfactory/gwasm-runner/releases/download/0.2.0/gwasm-runner-linux-amd64 && chmod +x /usr/bin/gwasm-runner
 
-RUN cd /root/hello 
-WORKDIR /root/hello
-ENV GU_HUB_ADDR=10.30.8.179:61622
+RUN cd /root/hello-gwasm-runner 
+WORKDIR /root/hello-gwasm-runner
+ENV GU_HUB_ADDR=172.30.30.22:61622
 ENV CARGO_NET_OFFLINE=true
 
