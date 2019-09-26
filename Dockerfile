@@ -17,30 +17,26 @@ ENV EMSDK=/opt/emsdk
 ENV PATH=$PATH:/opt/emsdk
 RUN emsdk activate latest
 
-COPY gwasm-runner /usr/bin/
 
 ENV PATH=$PATH:/opt/emsdk/fastcomp/emscripten:/opt/emsdk/node/8.9.1_64bit/bin
 
-# Install gwasm-runner
-COPY repos/gwasm-runner/target/release/gwasm-runner /usr/bin/gwasm-runner
-
 # Install hello example
 COPY repos/hello-gwasm-runner/ /root/hello/
-RUN cd /root/hello/ && cargo build --release
+RUN cd /root/hello/ && cargo build --release && cargo clean
 
 # Install mandelbrot
 RUN cd /root && git clone https://github.com/golemfactory/mandelbrot.git
-RUN cd /root/mandelbrot && cargo build --release 
+RUN cd /root/mandelbrot && cargo build --release && cargo clean
 
 # Install gudot
 COPY repos/gudot/ /root/gudot/
-RUN cd /root/hello/ && cargo build --release
+RUN cd /root/hello/ && cargo build --release && cargo clean
 
 # Install rust key crackers
 COPY repos/key_cracker_demo/ /root/key_cracker_demo/
 COPY repos/key_cracker_gen/ /root/key_cracker_gen/
-RUN cd /root/key_cracker_demo/ && cargo build --release
-RUN cd /root/key_cracker_gen/ && cargo build --release
+RUN cd /root/key_cracker_demo/ && cargo build --release && cargo clean
+RUN cd /root/key_cracker_gen/ && cargo build --release && cargo clean
 
 # Install c++ key crackers
 COPY repos/key_cracker_cpp/ /root/key_cracker_cpp/
@@ -50,5 +46,10 @@ RUN cd /root/key_cracker_cpp/ && \
     emconfigure cmake .. && \
     make
 
+RUN curl -L -o /usr/bin/gwasm-runner https://github.com/golemfactory/gwasm-runner/releases/download/0.2.0/gwasm-runner-linux-amd64 && chmod +x /usr/bin/gwasm-runner
+
 RUN cd /root/hello 
 WORKDIR /root/hello
+ENV GU_HUB_ADDR=10.30.8.179:61622
+ENV CARGO_NET_OFFLINE=true
+
