@@ -29,6 +29,7 @@ RUN cd /root && git clone https://github.com/golemfactory/mandelbrot.git
 RUN cd /root/mandelbrot && cargo build --release && cargo clean
 
 # Install gudot
+# Install gudot
 COPY repos/gudot/ /root/gudot/
 RUN cd /root/gudot/ && cargo build --release && cargo clean
 
