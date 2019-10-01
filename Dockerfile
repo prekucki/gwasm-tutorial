@@ -1,6 +1,6 @@
 FROM debian:stable
 RUN apt-get update && apt-get install -y build-essential curl gcc git python libxml2 cmake vim \
-    pkg-config libfreetype6-dev libexpat1-dev
+    pkg-config libfreetype6-dev libexpat1-dev libfontconfig1-dev
 
 # Install Rust
 ENV RUSTUP_HOME=/opt/rust
