@@ -16,9 +16,9 @@ jobs:
       with:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        IMAGE_NAME: 'test-docker-action'
-        DOCKERFILE_PATH: 'argo/gpu.Dockerfile'
-        BUILD_CONTEXT: 'argo/'
+        IMAGE_NAME: 'test-dt'
+        DOCKERFILE_PATH: 'Dockerfile'
+        BUILD_CONTEXT: '.'
 
     # This second step is illustrative and shows how to reference the 
     # output variables.  This is completely optional.
